@@ -6,9 +6,65 @@ body_attr: >-
   data-spy="scroll" data-target="#navbar-year" data-offset="100"
 ---
 
-{% assign pubs_by_year = site.publications | sort: "date" | reverse | group_by_exp: "item", "item.date | date: '%Y'" %}
+{% comment %} 1. 提取所有一作论文并按日期降序 {% endcomment %}
+{% assign first_author = site.publications | where: "is_first_author", true | sort: "date" | reverse %}
+
+{% comment %} 2. 提取所有非一作论文并按日期降序 {% endcomment %}
+{% assign non_first_author = site.publications | where_exp: "item", "item.is_first_author != true" | sort: "date" | reverse %}
+
+{% comment %} 3. 合并两组结果（一作在前，非一作在后） {% endcomment %}
+{% assign all_publications = first_author | concat: non_first_author %}
+
+{% comment %} 4. 按年份分组 {% endcomment %}
+{% assign pubs_by_year = all_publications | group_by_exp: "item", "item.date | date: '%Y'" %}
 
 <div class="row">
+    <div class="col-12 col-lg-10">
+        {% comment %} 一作论文部分 {% endcomment %}
+        <h2 class="pt-4">First-Author Publications</h2>
+        {% assign first_author_by_year = first_author | group_by_exp: "item", "item.date | date: '%Y'" %}
+        {% for year in first_author_by_year %}
+        <h3 class="pt-3" id="first-author-year-{{ year.name }}">{{ year.name }}</h3>
+        <div class="my-0 p-0 bg-white shadow-sm rounded-sm">
+            {% for item in year.items %}
+                {% include widgets/publication_item.html item=item hide_bottom_border=forloop.last first=forloop.first last=forloop.last %}
+            {% endfor %}
+        </div>
+        {% endfor %}
+        
+        {% comment %} 非一作论文部分 {% endcomment %}
+        <h2 class="pt-4">Collaborative Publications</h2>
+        {% assign non_first_author_by_year = non_first_author | group_by_exp: "item", "item.date | date: '%Y'" %}
+        {% for year in non_first_author_by_year %}
+        <h3 class="pt-3" id="collab-year-{{ year.name }}">{{ year.name }}</h3>
+        <div class="my-0 p-0 bg-white shadow-sm rounded-sm">
+            {% for item in year.items %}
+                {% include widgets/publication_item.html item=item hide_bottom_border=forloop.last first=forloop.first last=forloop.last %}
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="col-2 d-none d-lg-block">
+        <div id="navbar-year" class="nav nav-pills flex-column sticky-top" style="top: 80px">
+            {% comment %} 一作论文年份导航 {% endcomment %}
+            <h6 class="nav-link disabled">First-Author</h6>
+            {% assign first_author_by_year = first_author | group_by_exp: "item", "item.date | date: '%Y'" %}
+            {% for year in first_author_by_year %}
+            <a class="nav-link d-block" href="#first-author-year-{{ year.name }}">{{ year.name }}</a>
+            {% endfor %}
+            
+            {% comment %} 非一作论文年份导航 {% endcomment %}
+            <h6 class="nav-link disabled">Collaborative</h6>
+            {% assign non_first_author_by_year = non_first_author | group_by_exp: "item", "item.date | date: '%Y'" %}
+            {% for year in non_first_author_by_year %}
+            <a class="nav-link d-block" href="#collab-year-{{ year.name }}">{{ year.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- <div class="row">
     <div class="col-12 col-lg-10">
         {% for year in pubs_by_year %}
         {% assign num_papers = year.items | size %}
@@ -29,4 +85,4 @@ body_attr: >-
         </div>
     </div>
 
-</div>
+</div> -->
