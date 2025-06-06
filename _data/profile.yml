@@ -22,7 +22,7 @@ gscholar: SYk1kTYAAAAJ  # This is an example, replace it with your own Google Sc
 short_bio_text_justify: false
 short_bio: >-
   <p>
-    I am currently a Master student in the <a href="https://scuvis.org/" target="_blank">Vision Computing Lab</a> at the <a href="https://cs.scu.edu.cn/e_jsjxy/" target="_blank">College of Computer Science</a>, <a href="https://scu.edu.cn/" target="_blank">Sichuan University</a> under the supervision of <a href="https://cs.scu.edu.cn/info/1359/16768.htm" target="_blank">Prof. Min Zhu</a>. Previously, I got my bBchelor's degree in Computer Science and Technology at College of Computer Science, Sichuan University in 2023.
+    I am currently a Master student in the <a href="https://scuvis.org/" target="_blank">Vision Computing Lab</a> at the <a href="https://cs.scu.edu.cn/e_jsjxy/" target="_blank">College of Computer Science</a>, <a href="https://scu.edu.cn/" target="_blank">Sichuan University</a> under the supervision of <a href="https://cs.scu.edu.cn/info/1359/16768.htm" target="_blank">Prof. Min Zhu</a>. Previously, I got my Bachelor's degree in Computer Science and Technology at College of Computer Science, Sichuan University in 2023.
   </p>
 # <p>
 #   A <a href="https://en.wikipedia.org/wiki/Bicolor_cat" target="_blank">bicolor cat</a> is a cat with white fur combined with fur of some other colour, for example solid black, tabby, or colourpointed.
@@ -33,7 +33,7 @@ short_bio: >-
 #   as well as being common in domestic longhair and domestic shorthair cats.
 # </p>
 
-portrait_url: /assets/images/photos/portrait.jpg
+portrait_url: /assets/images/photos/my01.jpg
 # portrait_caption: >-
 #   Photo by Manja Vitolic on Unsplash (this caption is optional, comment it out to disable).
 
